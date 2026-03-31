@@ -88,10 +88,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-const GITHUB_USER = 'tyson365';
-const GITHUB_REPO = 'Tyson_Casting_Agent';
-const WORKFLOW_NAME = 'Daily Casting Scraper';
-
 const emailDrafts = {
   ott: (title) => `Subject: Application — ${title} | Tyson (Parvez Husain)\n\nDear Casting Team,\n\nI'm Tyson, a 16-year-old actor based in West Bengal with strong on-camera presence and 5+ years in filmmaking. I'm fluent in English, Hindi, and Bengali.\n\nI'm applying for the role listed in: ${title}. I've attached my headshot and intro video. I'm currently directing and starring in my own short film, which has deepened my understanding of character-driven storytelling.\n\nI'd be glad to submit a self-tape.\n\nWarm regards,\nParvez Husain (Tyson)\n+91 XXXXXXXXXX`,
   film: (title) => `Subject: Teen Actor Application — ${title} | Parvez Husain\n\nDear Casting Director,\n\nI'm Tyson, a 16-year-old actor from West Bengal with a natural intensity and strong screen presence. I'm drawn to character-driven stories and psychologically complex roles.\n\nApplying for: ${title}. Headshot and intro reel attached.\n\nRegards,\nParvez Husain (Tyson)`,
@@ -110,41 +106,13 @@ let statuses = {};
 
 async function loadAuditions() {
   try {
-    const runsRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/actions/runs?per_page=5`);
-    const runsData = await runsRes.json();
-    const successRun = runsData.workflow_runs?.find(r => r.conclusion === 'success');
-    if (!successRun) { showError('No successful scraper run found yet.'); return; }
-    const artRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/actions/runs/${successRun.id}/artifacts`);
-    const artData = await artRes.json();
-    const artifact = artData.artifacts?.find(a => a.name === 'auditions');
-    if (!artifact) { showError('No auditions artifact found.'); return; }
-    document.getElementById('cardList').innerHTML = '<div class="empty">Loading auditions...</div>';
-    showError('GitHub API requires auth to download artifacts directly. Loading last known data...');
-    loadFallback();
+    const res = await fetch('auditions.json');
+    auditions = await res.json();
+    updateStats();
+    renderCards();
   } catch(e) {
-    loadFallback();
+    document.getElementById('cardList').innerHTML = '<div class="empty">Could not load auditions. Try refreshing.</div>';
   }
-}
-
-function loadFallback() {
-  auditions = [
-    {id:1,rank:1,title:"Casting call for web series — fresh faces wanted",type:"ott",snippet:"Casting for an upcoming web series looking for fresh faces and talented actors ready to bring powerful stories to life.",link:"https://www.instagram.com/p/DWUGRH4jxH-/"},
-    {id:2,rank:2,title:"Mukesh Chhabra Casting — boys age 16–22, web series",type:"ott",snippet:"MCCC looking for boys age 16–22 for an upcoming web series.",link:"https://www.facebook.com/MukeshChhabraCC/posts/1318579866964351/"},
-    {id:3,rank:3,title:"Casting for JioHotstar web series — boys 16–22",type:"ott",snippet:"Requirement for web series — boys age 16–22. Interested actors share your profile.",link:"https://www.facebook.com/gokul.krishna.373285/posts/2687342918266886/"},
-    {id:4,rank:4,title:"Netflix project casting — April 2026 shoot",type:"ott",snippet:"MJ Films casting for an upcoming Netflix project shooting April 2026.",link:"https://www.instagram.com/p/DVIUxwjiQ11/"},
-    {id:5,rank:5,title:"Talentrack — teenager actor auditions India",type:"ott",snippet:"Looking for teenager actors in India. Get updates about latest acting jobs and casting calls.",link:"https://www.talentrack.in/actor-audition-in-india--TEENAGER-ACTOR"},
-    {id:6,rank:6,title:"HNJ Films — auditions 2026 officially open",type:"film",snippet:"Male artists age 18–50. Acting experience mandatory. Share a monologue video.",link:"https://www.instagram.com/p/DS-OoQxDxFE/"},
-    {id:7,rank:7,title:"Acmodasi — casting for a movie, teen actor",type:"film",snippet:"Casting for a movie. First time auditioning. Talented and passionate young actor.",link:"https://www.acmodasi.in/auditions/for_teens/"},
-    {id:8,rank:8,title:"Modelzworld — verified casting calls India",type:"ad",snippet:"All casting calls 100% verified. Actor and model casting in India. No charges for applying.",link:"https://modelzworld.com/casting-calls-2/"},
-    {id:9,rank:9,title:"Castkro — acting auditions and casting India",type:"short",snippet:"Free platform connecting casting directors with talented actors from Mumbai, Delhi, and nationwide.",link:"https://www.castkro.com/"},
-    {id:10,rank:10,title:"Acmodasi — auditions in tv series for teens",type:"short",snippet:"Casting calls for teens in TV series are increasingly popular as producers look for the perfect actors.",link:"https://www.acmodasi.in/auditions/in_tv_series-for_teens/"},
-  ];
-  updateStats();
-  renderCards();
-}
-
-function showError(msg) {
-  console.log(msg);
 }
 
 function updateStats() {
