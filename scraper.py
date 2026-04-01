@@ -13,8 +13,16 @@ QUERIES = [
     "teen male casting Bollywood OTT 2026",
 ]
 
-EXCLUDE_KEYWORDS = ["female","girl","woman","lady","actress","dance competition","model female","singer"]
-INCLUDE_KEYWORDS = ["boy","male","teen","young","youth","kid","child","actor","16","17","15","18"]
+EXCLUDE_KEYWORDS = [
+    "female","girl","woman","lady","actress","dance competition",
+    "model female","singer","bhabhi","didi","sister",
+    "age 20 to 28","age 21 to","age 22 to","age 23 to","age 24 to",
+    "age 25","age 26","age 27","age 28","age 29","age 30","age 35","age 40",
+    "20 to 28","25 to 35","21 to 30","22 to 30","20-28","25-35","20 to 30",
+    "18 to 25","19 to 25","19 to 27","18 to 30"
+]
+
+INCLUDE_KEYWORDS = ["boy","male","teen","young","youth","kid","child","actor","16","17","15","14","18"]
 
 def search(query):
     results = []
