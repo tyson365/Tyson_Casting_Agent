@@ -7,72 +7,89 @@
 <title>Tyson's Casting Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a18;min-height:100vh;}
-.topbar{background:#1a1a18;color:#f5f4f0;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
-.topbar-title{font-size:16px;font-weight:500;}
-.topbar-sub{font-size:12px;color:#888780;}
-.badge-live{font-size:11px;font-weight:500;padding:4px 10px;border-radius:8px;background:#1D9E75;color:#fff;}
-.container{max-width:720px;margin:0 auto;padding:20px 16px;}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
-.stat{background:#fff;border-radius:10px;padding:14px 16px;border:0.5px solid #e0dfd8;}
-.stat-label{font-size:11px;color:#888780;margin-bottom:5px;}
-.stat-val{font-size:22px;font-weight:500;}
-.filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.filter-btn{font-size:12px;padding:5px 12px;border-radius:999px;border:0.5px solid #ccc;background:#fff;color:#666;cursor:pointer;}
-.filter-btn.active{background:#1a1a18;color:#f5f4f0;border-color:#1a1a18;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d0d14;color:#f0f0f5;min-height:100vh;}
+.topbar{background:rgba(13,13,20,0.95);border-bottom:1px solid rgba(255,255,255,0.07);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.topbar-logo{width:28px;height:28px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;}
+.topbar-title{font-size:15px;font-weight:600;color:#fff;letter-spacing:0.3px;}
+.topbar-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:1px;}
+.badge-live{font-size:11px;font-weight:500;padding:4px 12px;border-radius:999px;background:rgba(29,158,117,0.15);color:#1D9E75;border:1px solid rgba(29,158,117,0.3);}
+.hero{padding:40px 24px 24px;max-width:800px;margin:0 auto;}
+.hero-title{font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-0.5px;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.4);}
+.container{max-width:800px;margin:0 auto;padding:0 24px 40px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.stat{background:rgba(255,255,255,0.04);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.07);transition:border-color 0.2s;}
+.stat:hover{border-color:rgba(124,58,237,0.4);}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;}
+.stat-val{font-size:24px;font-weight:700;color:#fff;}
+.filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.filter-btn{font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s;font-weight:500;}
+.filter-btn:hover{border-color:rgba(255,255,255,0.25);color:#fff;}
+.filter-btn.active{background:rgba(124,58,237,0.2);border-color:#7c3aed;color:#c4b5fd;}
 .cards{display:flex;flex-direction:column;gap:10px;}
-.card{background:#fff;border:0.5px solid #e0dfd8;border-radius:12px;padding:16px 18px;cursor:pointer;transition:border-color 0.15s;}
-.card:hover{border-color:#aaa;}
-.card.expanded{border-color:#888;}
-.card-top{display:flex;align-items:flex-start;gap:12px;}
-.rank{font-size:11px;color:#aaa;min-width:18px;padding-top:2px;}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px 20px;cursor:pointer;transition:all 0.2s;}
+.card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);}
+.card.expanded{background:rgba(124,58,237,0.07);border-color:rgba(124,58,237,0.35);}
+.card-top{display:flex;align-items:flex-start;gap:14px;}
+.rank{font-size:11px;color:rgba(255,255,255,0.2);min-width:18px;padding-top:3px;font-weight:600;}
 .card-info{flex:1;}
-.card-title{font-size:15px;font-weight:500;margin-bottom:5px;line-height:1.4;}
+.card-title{font-size:14px;font-weight:600;color:#f0f0f5;margin-bottom:6px;line-height:1.4;}
 .card-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.tag{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:500;}
-.tag-ott{background:#EEEDFE;color:#3C3489;}
-.tag-film{background:#E6F1FB;color:#0C447C;}
-.tag-ad{background:#FAEEDA;color:#633806;}
-.tag-short{background:#EAF3DE;color:#27500A;}
-.tag-theatre{background:#FBEAF0;color:#72243E;}
-.platform-tag{font-size:10px;color:#888;padding:2px 6px;border:0.5px solid #ddd;border-radius:4px;}
+.tag{font-size:10px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:0.03em;}
+.tag-ott{background:rgba(124,58,237,0.2);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);}
+.tag-film{background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.25);}
+.tag-ad{background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.25);}
+.tag-short{background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.25);}
+.tag-theatre{background:rgba(236,72,153,0.15);color:#f9a8d4;border:1px solid rgba(236,72,153,0.25);}
+.platform-tag{font-size:10px;color:rgba(255,255,255,0.3);padding:2px 7px;border:1px solid rgba(255,255,255,0.08);border-radius:999px;}
+.date-tag{font-size:10px;color:rgba(255,255,255,0.2);}
 .dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0;}
-.dot-new{background:#639922;}
-.dot-applied{background:#378ADD;}
-.dot-skip{background:#ccc;}
-.expanded-body{margin-top:14px;padding-top:14px;border-top:0.5px solid #e0dfd8;display:none;}
-.card.expanded .expanded-body{display:block;}
-.snippet{font-size:13px;color:#666;line-height:1.6;margin-bottom:14px;}
-.actions{display:flex;gap:8px;flex-wrap:wrap;}
-.btn{font-size:12px;padding:7px 14px;border-radius:8px;border:0.5px solid #ccc;background:#fff;color:#1a1a18;cursor:pointer;font-weight:500;text-decoration:none;display:inline-block;}
-.btn:hover{background:#f5f4f0;}
-.btn-primary{background:#1a1a18;color:#fff;border-color:#1a1a18;}
-.btn-primary:hover{background:#333;}
-.btn-link{color:#185FA5;border-color:#B5D4F4;}
-.btn-link:hover{background:#E6F1FB;}
-.btn-danger{color:#A32D2D;border-color:#F7C1C1;}
-.btn-danger:hover{background:#FCEBEB;}
-.draft-box{background:#f5f4f0;border-radius:8px;padding:14px;margin-top:14px;display:none;}
-.draft-label{font-size:11px;font-weight:500;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;}
-.draft-text{font-size:13px;color:#1a1a18;line-height:1.7;white-space:pre-wrap;}
-.copy-btn{margin-top:10px;}
-.empty{text-align:center;padding:2rem;color:#aaa;font-size:14px;}
-.date-tag{font-size:10px;color:#aaa;}
-@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr);}}
+.dot-new{background:#1D9E75;box-shadow:0 0 6px rgba(29,158,117,0.5);}
+.dot-applied{background:#3b82f6;box-shadow:0 0 6px rgba(59,130,246,0.5);}
+.dot-skip{background:rgba(255,255,255,0.15);}
+.expanded-body{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);}
+.snippet{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:16px;}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.btn{font-size:12px;padding:7px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;font-weight:500;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn:hover{background:rgba(255,255,255,0.07);color:#fff;}
+.btn-primary{background:rgba(124,58,237,0.25);border-color:rgba(124,58,237,0.5);color:#c4b5fd;}
+.btn-primary:hover{background:rgba(124,58,237,0.4);}
+.btn-link{color:#93c5fd;border-color:rgba(59,130,246,0.3);}
+.btn-link:hover{background:rgba(59,130,246,0.1);}
+.btn-danger{color:#fca5a5;border-color:rgba(239,68,68,0.3);}
+.btn-danger:hover{background:rgba(239,68,68,0.1);}
+.btn-success{color:#6ee7b7;border-color:rgba(16,185,129,0.3);}
+.btn-success:hover{background:rgba(16,185,129,0.1);}
+.draft-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:16px;border:1px solid rgba(255,255,255,0.07);}
+.draft-label{font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;}
+.draft-text{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.8;white-space:pre-wrap;font-family:'Courier New',monospace;}
+.copy-btn{margin-top:12px;}
+.empty{text-align:center;padding:3rem;color:rgba(255,255,255,0.2);font-size:14px;}
+.divider{height:1px;background:rgba(255,255,255,0.05);margin:20px 0;}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr);}.hero-title{font-size:22px;}}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div>
-    <div class="topbar-title">Tyson's Casting Hub</div>
-    <div class="topbar-sub">Auto-updated daily · Parvez Husain</div>
+  <div class="topbar-left">
+    <div class="topbar-logo">T</div>
+    <div>
+      <div class="topbar-title">Tyson's Casting Hub</div>
+      <div class="topbar-sub">Auto-updated daily · Parvez Husain</div>
+    </div>
   </div>
   <span class="badge-live">● Live</span>
 </div>
 
+<div class="hero">
+  <div class="hero-title">Today's Auditions</div>
+  <div class="hero-sub">Ranked by project size · Teen male roles · India</div>
+</div>
+
 <div class="container">
-  <div class="stats" style="margin-top:20px;">
+  <div class="stats">
     <div class="stat"><div class="stat-label">Found today</div><div class="stat-val" id="total-count">0</div></div>
     <div class="stat"><div class="stat-label">OTT / Film</div><div class="stat-val" id="ott-count">0</div></div>
     <div class="stat"><div class="stat-label">Applied</div><div class="stat-val" id="applied-count">0</div></div>
@@ -96,149 +113,77 @@ const PROFILE = {
   name: "Parvez Husain",
   stageName: "Tyson",
   age: 16,
-  dob: "14 November 2009",
   height: "5'7\"",
   weight: "50 kg",
-  gender: "Male",
   location: "Rampurhat, West Bengal",
   languages: "English, Hindi, Bengali",
   email: "andereshan@gmail.com",
   phone: "+91 9332977027",
   experience: "5+ years in VFX, CGI, 3D animation, and filmmaking",
-  training: "Acting workshops by Pryesh Patel (ALH), Bollywood Networking Workshop by Ankit Jain",
-  currentProject: "Currently directing and starring in my own short film 'TIME — the unknown gift'",
-  strengths: "intense/brooding characters, comic relief, natural screen presence"
+  training: "Acting workshops by Pryesh Patel (ALH Audition Group) and Bollywood Networking Workshop by Ankit Jain",
+  currentProject: "Currently directing and starring in my own short film 'TIME — the unknown gift'"
 };
 
-function generateEmail(audition) {
-  const t = audition.type;
-  const title = audition.title;
-  const platform = audition.platform ? `(${audition.platform})` : "";
-  const snippet = audition.snippet || "";
-
-  const intro = `I am Parvez Husain, professionally known as Tyson — a ${PROFILE.age}-year-old male actor from ${PROFILE.location}. I am ${PROFILE.height} tall, ${PROFILE.weight}, and fluent in ${PROFILE.languages}.`;
+function generateEmail(a) {
+  const t = a.type;
+  const title = a.title;
+  const platform = a.platform ? ` (${a.platform})` : "";
+  const base = `I am Parvez Husain, professionally known as Tyson — a ${PROFILE.age}-year-old male actor from ${PROFILE.location}. I stand at ${PROFILE.height}, weigh ${PROFILE.weight}, and am fluent in ${PROFILE.languages}.`;
   const training = `I have completed acting workshops under Pryesh Patel (ALH Audition Group) and the Bollywood Networking Workshop by Ankit Jain. ${PROFILE.currentProject}.`;
-  const closing = `Please find my headshot and intro video attached. I am available for self-tape or in-person audition at your convenience.\n\nBest regards,\nParvez Husain (Tyson)\n${PROFILE.phone}\n${PROFILE.email}`;
+  const closing = `Please find my headshot and intro video attached. I am available for a self-tape or in-person audition at your convenience.\n\nBest regards,\nParvez Husain (Tyson)\n${PROFILE.phone}\n${PROFILE.email}`;
 
-  if (t === "ott") {
-    return `Subject: Teen Male Actor Application — ${title} ${platform} | Parvez Husain (Tyson)
+  if(t==='ott') return `Subject: Teen Male Actor Application — ${title}${platform} | Parvez Husain (Tyson)\n\nDear Casting Team,\n\nI am writing to apply for the teen male role in ${title}${platform}.\n\n${base}\n\nI bring strong on-screen presence suited for intense, emotionally complex characters as well as natural comic relief. ${PROFILE.experience}.\n\n${training}\n\n${closing}`;
 
-Dear Casting Team,
+  if(t==='film') return `Subject: Teen Male Actor — ${title} | Parvez Husain (Tyson)\n\nDear Casting Director,\n\nI am applying for the teen male role in ${title}.\n\n${base}\n\nI am drawn to psychologically complex, character-driven roles. My natural screen presence leans intense and brooding — I carry emotional weight without overacting. I am equally strong in comic relief.\n\n${PROFILE.experience}.\n\n${training}\n\n${closing}`;
 
-I am writing to apply for the teen male role in ${title} ${platform}.
+  if(t==='ad') return `Subject: Teen Male Actor — Commercial Application | Parvez Husain (Tyson)\n\nDear Casting Team,\n\nI am applying for the teen male role in: ${title}.\n\n${base}\n\nI am camera-comfortable, high energy, and experienced in front of the lens through years of self-directed filmmaking. I adapt quickly to direction and deliver clean takes efficiently.\n\n${training}\n\n${closing}`;
 
-${intro}
+  if(t==='theatre') return `Subject: Teen Male Actor — Theatre Application | Parvez Husain (Tyson)\n\nDear Director,\n\nI am applying for the teen male role in: ${title}.\n\n${base}\n\nTheatre's demand for presence and spontaneity aligns with how I approach performance — committed and raw. I connect deeply with emotionally complex, introspective characters.\n\n${training}\n\n${closing}`;
 
-I bring a strong and natural on-screen presence — particularly suited for intense, brooding, and emotionally complex characters, as well as comic relief roles. ${PROFILE.experience}.
-
-${training}
-
-${closing}`;
-  }
-
-  if (t === "film") {
-    return `Subject: Teen Male Actor — ${title} | Parvez Husain (Tyson)
-
-Dear Casting Director,
-
-I am applying for the teen male role in ${title}.
-
-${intro}
-
-I am drawn to character-driven, psychologically complex roles. My natural screen vibe leans intense and brooding — I can carry emotional weight without overacting. I am also naturally strong in comic relief. ${PROFILE.experience}.
-
-${training}
-
-${closing}`;
-  }
-
-  if (t === "ad") {
-    return `Subject: Teen Male Actor — Commercial/Ad Application | Parvez Husain (Tyson)
-
-Dear Casting Team,
-
-I am applying for the teen male role in: ${title}.
-
-${intro}
-
-I am camera-comfortable, high energy, and experienced in front of the lens through years of self-directed filmmaking. I adapt quickly to direction and deliver clean takes efficiently.
-
-${training}
-
-${closing}`;
-  }
-
-  if (t === "theatre") {
-    return `Subject: Teen Male Actor — Theatre Application | Parvez Husain (Tyson)
-
-Dear Director,
-
-I am applying for the teen male role in: ${title}.
-
-${intro}
-
-I connect deeply with emotionally complex, introspective characters. Theatre's demand for presence and spontaneity aligns with how I approach performance — raw and committed.
-
-${training}
-
-${closing}`;
-  }
-
-  return `Subject: Teen Male Actor Application — ${title} | Parvez Husain (Tyson)
-
-Dear Team,
-
-I am applying for the teen male role in: ${title}.
-
-${intro}
-
-${PROFILE.experience}. ${training}
-
-${closing}`;
+  return `Subject: Teen Male Actor Application — ${title} | Parvez Husain (Tyson)\n\nDear Team,\n\nI am applying for the teen male role in: ${title}.\n\n${base}\n\n${PROFILE.experience}.\n\n${training}\n\n${closing}`;
 }
 
-const typeLabel = {ott:'OTT / Web Series',film:'Feature Film',ad:'Ad / Commercial',short:'Short / Other',theatre:'Theatre'};
-const tagClass = {ott:'tag-ott',film:'tag-film',ad:'tag-ad',short:'tag-short',theatre:'tag-theatre'};
+const typeLabel={ott:'OTT / Web Series',film:'Feature Film',ad:'Ad / Commercial',short:'Short / Other',theatre:'Theatre'};
+const tagClass={ott:'tag-ott',film:'tag-film',ad:'tag-ad',short:'tag-short',theatre:'tag-theatre'};
 
-let auditions = [];
-let currentFilter = 'all';
-let expandedId = null;
-let statuses = {};
+let auditions=[];
+let currentFilter='all';
+let expandedId=null;
+let statuses={};
 
-async function loadAuditions() {
-  try {
-    const res = await fetch('auditions.json?t=' + Date.now());
-    auditions = await res.json();
+async function loadAuditions(){
+  try{
+    const res=await fetch('auditions.json?t='+Date.now());
+    auditions=await res.json();
     updateStats();
     renderCards();
-  } catch(e) {
-    document.getElementById('cardList').innerHTML = '<div class="empty">Could not load auditions. Try refreshing.</div>';
+  }catch(e){
+    document.getElementById('cardList').innerHTML='<div class="empty">Could not load auditions. Try refreshing.</div>';
   }
 }
 
-function updateStats() {
-  document.getElementById('total-count').textContent = auditions.length;
-  document.getElementById('ott-count').textContent = auditions.filter(a=>a.type==='ott'||a.type==='film').length;
-  document.getElementById('applied-count').textContent = Object.values(statuses).filter(s=>s==='applied').length;
-  document.getElementById('skipped-count').textContent = Object.values(statuses).filter(s=>s==='skip').length;
+function updateStats(){
+  document.getElementById('total-count').textContent=auditions.length;
+  document.getElementById('ott-count').textContent=auditions.filter(a=>a.type==='ott'||a.type==='film').length;
+  document.getElementById('applied-count').textContent=Object.values(statuses).filter(s=>s==='applied').length;
+  document.getElementById('skipped-count').textContent=Object.values(statuses).filter(s=>s==='skip').length;
 }
 
-function filterCards(type, btn) {
-  currentFilter = type;
+function filterCards(type,btn){
+  currentFilter=type;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderCards();
 }
 
-function renderCards() {
-  const list = document.getElementById('cardList');
-  const filtered = currentFilter==='all' ? auditions : auditions.filter(a=>a.type===currentFilter);
+function renderCards(){
+  const list=document.getElementById('cardList');
+  const filtered=currentFilter==='all'?auditions:auditions.filter(a=>a.type===currentFilter);
   if(!filtered.length){list.innerHTML='<div class="empty">No auditions in this category.</div>';return;}
-  list.innerHTML = filtered.map(a=>{
-    const st = statuses[a.id]||'new';
-    const isExpanded = expandedId === a.id;
-    const draft = isExpanded ? generateEmail(a) : '';
-    return `<div class="card ${isExpanded?'expanded':''}" id="card-${a.id}" onclick="toggleCard(event,${a.id})">
+  list.innerHTML=filtered.map(a=>{
+    const st=statuses[a.id]||'new';
+    const isExp=expandedId===a.id;
+    return `<div class="card ${isExp?'expanded':''}" onclick="toggleCard(event,${a.id})">
       <div class="card-top">
         <div class="rank">${a.rank}</div>
         <div class="card-info">
@@ -251,18 +196,17 @@ function renderCards() {
         </div>
         <div class="dot ${st==='new'?'dot-new':st==='applied'?'dot-applied':'dot-skip'}"></div>
       </div>
-      ${isExpanded?`
-      <div class="expanded-body">
+      ${isExp?`<div class="expanded-body">
         <div class="snippet">${a.snippet||''}</div>
         <div class="actions">
           <a href="${a.link}" class="btn btn-link" target="_blank" onclick="event.stopPropagation()">View source</a>
-          <button class="btn" onclick="markStatus(event,${a.id},'applied')">Mark applied</button>
+          <button class="btn btn-success" onclick="markStatus(event,${a.id},'applied')">Mark applied</button>
           <button class="btn btn-danger" onclick="markStatus(event,${a.id},'skip')">Skip</button>
         </div>
-        <div class="draft-box" style="display:block;">
+        <div class="draft-box">
           <div class="draft-label">Email draft — copy and send from Gmail</div>
-          <div class="draft-text" id="draft-text-${a.id}">${draft}</div>
-          <button class="btn copy-btn" onclick="copyDraft(event,${a.id})">Copy draft</button>
+          <div class="draft-text">${generateEmail(a)}</div>
+          <button class="btn btn-primary copy-btn" onclick="copyDraft(event,${a.id})">Copy draft</button>
         </div>
       </div>`:''}
     </div>`;
@@ -270,30 +214,32 @@ function renderCards() {
   updateStats();
 }
 
-function toggleCard(e, id) {
-  if(e.target.classList.contains('btn') || e.target.tagName === 'A') return;
-  expandedId = expandedId === id ? null : id;
+function toggleCard(e,id){
+  if(e.target.classList.contains('btn')||e.target.tagName==='A')return;
+  expandedId=expandedId===id?null:id;
   renderCards();
 }
 
-function copyDraft(e, id) {
+function copyDraft(e,id){
   e.stopPropagation();
-  const textEl = document.getElementById('draft-text-'+id);
-  if(textEl) navigator.clipboard.writeText(textEl.textContent).catch(()=>{
-    const ta = document.createElement('textarea');
-    ta.value = textEl.textContent;
+  const a=auditions.find(x=>x.id===id);
+  if(!a)return;
+  const text=generateEmail(a);
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=text;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
   });
-  e.target.textContent = 'Copied!';
-  setTimeout(()=>e.target.textContent='Copy draft', 1500);
+  e.target.textContent='Copied!';
+  setTimeout(()=>e.target.textContent='Copy draft',1500);
 }
 
-function markStatus(e, id, status) {
+function markStatus(e,id,status){
   e.stopPropagation();
-  statuses[id] = status;
+  statuses[id]=status;
   renderCards();
 }
 
