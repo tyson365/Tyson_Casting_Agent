@@ -6,10 +6,15 @@ import os
 API_KEY = os.environ.get("SERP_API_KEY")
 
 QUERIES = [
-    "teen male actor audition India 2026",
-    "casting call boy 15 16 17 India web series 2026",
-    "Netflix Amazon Prime casting teen India 2026",
+    "teen boy actor casting call India 2026",
+    "male actor age 16 17 casting India web series 2026",
+    "young male actor audition India Netflix Amazon 2026",
+    "casting call boy 15 16 17 18 India film 2026",
+    "teen male casting Bollywood OTT 2026",
 ]
+
+EXCLUDE_KEYWORDS = ["female","girl","woman","lady","actress","dance competition","model female","singer"]
+INCLUDE_KEYWORDS = ["boy","male","teen","young","youth","kid","child","actor","16","17","15","18"]
 
 def search(query):
     results = []
@@ -27,30 +32,44 @@ def search(query):
             link = item.get("link","")
             snippet = item.get("snippet","")
             text = (title + " " + snippet).lower()
-            if any(k in text for k in ["audition","casting","actor","role"]):
-                results.append({
-                    "title": title,
-                    "link": link,
-                    "snippet": snippet,
-                    "source": "Google",
-                    "type": detect_type(text),
-                    "date": datetime.now().strftime("%Y-%m-%d")
-                })
+            if any(k in text for k in EXCLUDE_KEYWORDS):
+                continue
+            if not any(k in text for k in ["audition","casting","actor","role","call"]):
+                continue
+            if not any(k in text for k in INCLUDE_KEYWORDS):
+                continue
+            results.append({
+                "title": title,
+                "link": link,
+                "snippet": snippet,
+                "source": "Google",
+                "type": detect_type(text),
+                "platform": detect_platform(text),
+                "date": datetime.now().strftime("%Y-%m-%d")
+            })
     except Exception as e:
         print(f"Error: {e}")
     return results
 
 def detect_type(text):
-    if any(k in text for k in ["netflix","prime","hotstar","ott","web series"]):
+    if any(k in text for k in ["netflix","prime","hotstar","jio","ott","web series","webseries","streaming"]):
         return "ott"
-    elif any(k in text for k in ["film","movie","feature","bollywood"]):
+    elif any(k in text for k in ["film","movie","feature","bollywood","cinema"]):
         return "film"
-    elif any(k in text for k in ["ad","commercial","brand","campaign"]):
+    elif any(k in text for k in ["ad","commercial","brand","campaign","advertisement"]):
         return "ad"
     elif any(k in text for k in ["theatre","theater","play","stage"]):
         return "theatre"
     else:
         return "short"
+
+def detect_platform(text):
+    if "netflix" in text: return "Netflix"
+    if "amazon" in text or "prime" in text: return "Amazon Prime"
+    if "hotstar" in text or "jio" in text: return "JioHotstar"
+    if "sony" in text: return "Sony LIV"
+    if "zee" in text: return "Zee5"
+    return ""
 
 def main():
     all_results = []
